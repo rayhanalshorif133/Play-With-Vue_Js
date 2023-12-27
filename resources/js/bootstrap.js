@@ -7,6 +7,21 @@ window._ = require('lodash');
  */
 
 window.axios = require('axios');
+// Swal
+window.Swal = require('sweetalert2');
+
+const Toastr = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
+  });
+window.Toastr = Toastr;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 

@@ -18,6 +18,12 @@ class ContentController extends Controller
         }
     }
 
+    public function store(Request $request)
+    {
+        $content = Content::create($request->all());
+        return $this->respondWithSuccess('Successfully created content', $content);
+    }
+
 
     public function destroy($id)
     {
