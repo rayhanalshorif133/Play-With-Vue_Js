@@ -10,4 +10,6 @@ class Content extends Model
     use HasFactory;
 
     protected $fillable = ['chapter', 'title', 'page'];
+
+    protected $hidden = ['created_at', 'updated_at'];
 }
