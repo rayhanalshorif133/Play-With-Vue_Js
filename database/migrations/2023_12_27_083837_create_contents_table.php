@@ -22,7 +22,7 @@ class CreateContentsTable extends Migration
             $table->timestamps();
         });
 
-        Content::factory()->count(10)->create();
+        Content::factory()->count(100)->create();
     }
 
     /**

@@ -7,9 +7,22 @@ use App\Models\Content;
 
 class ContentController extends Controller
 {
-    public function fetch()
+    public function fetch($id = null)
     {
-        $contents = Content::all();
-        return $this->respondWithSuccess('Successfully fetched content', $contents);
+        if ($id) {
+            $content = Content::find($id);
+            return $this->respondWithSuccess('Successfully fetched content', $content);
+        } else {
+            $contents = Content::all();
+            return $this->respondWithSuccess('Successfully fetched content', $contents);
+        }
+    }
+
+
+    public function destroy($id)
+    {
+        $content = Content::find($id);
+        $content->delete();
+        return $this->respondWithSuccess('Successfully deleted content', $content);
     }
 }
