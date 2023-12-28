@@ -1,7 +1,7 @@
 <template>
     <div class="mx-auto justify-center text-center w-4/12 mt-2 mb-10">
         <h1 class="text-center mt-10 text-2xl font-bold underline space-x-8">
-            <span>{{ left_message }}</span>
+            <span>{{ left_message }} {{ isInsert_get }}</span>
         </h1>
         <div class="border border-green-600 mt-2">
             <h2
@@ -59,20 +59,33 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
+import { ref, mounted } from "vue";
 import axios from "axios";
 export default {
+
     props: {
-        fetch: {
-            type: Function,
+        isInsert: {
+            type: Boolean,
         },
     },
-    setup() {
+    data() {
+        return {
+            chapter: "1",
+            title: "something",
+            page: "1",
+        };
+    },
+    setup(props) {
         return {
             left_message: "Content's info and modified",
+            isInsert_get: props.isInsert.isInsert,
         };
     },
     methods: {
+        logPropValue() {
+            // Accessing props value in a method
+            console.log("Prop Value:", isInsert_get);
+        },
         submitForm: function () {
             axios
                 .post("/api/content", {
@@ -84,11 +97,11 @@ export default {
                     this.chapter = "";
                     this.title = "";
                     this.page = "";
-                    fetch();
                     Toastr.fire({
                         icon: "success",
                         title: "Content added successfully",
                     });
+                    this.logPropValue();
                 });
         },
     },

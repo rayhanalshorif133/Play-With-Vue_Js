@@ -1,6 +1,6 @@
 <template>
     <div class="flex w-full">
-        <InsertSection :fetch="{fetch}"/>
+        <InsertSection :isInsert="{isInsert}"/>
         <div
             class="mx-auto justify-center text-center w-4/12 flex flex-col space-y-4 mt-2 mb-10"
         >
@@ -31,12 +31,18 @@
                         <td>{{ item.chapter }}</td>
                         <td>{{ item.title }}</td>
                         <td>{{ item.page }}</td>
-                        <td>
+                        <td class="space-x-2">
                             <button
                                 @click="deleteItem(item.id)"
-                                class="rounded-full h-6 w-6 bg-red-300 hover:bg-red-600 text-white"
+                                class="rounded-full h-7 w-7 bg-blue-300 hover:bg-blue-600 text-white"
                             >
-                                <i class="fa-solid fa-xmark"></i>
+                                <i class="fa-solid fa-pen-to-square text-[12px]"></i>
+                            </button>
+                            <button
+                                @click="deleteItem(item.id)"
+                                class="rounded-full h-7 w-7 bg-red-300 hover:bg-red-600 text-white"
+                            >
+                                <i class="fa-solid fa-xmark text-[12px]"></i>
                             </button>
                         </td>
                     </tr>
@@ -58,12 +64,14 @@ export default {
 
     setup() {
         const count = ref(0);
+        const isInsert = ref(false);
 
         return {
             left_message: "Content's info and modified",
             right_message: "Table of Contents",
             count: count,
             items: items,
+            isInsert: isInsert,
         };
     },
     data() {
