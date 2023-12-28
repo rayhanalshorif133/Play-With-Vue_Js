@@ -25,10 +25,24 @@ class ContentController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy($id = null)
     {
-        $content = Content::find($id);
-        $content->delete();
-        return $this->respondWithSuccess('Successfully deleted content', $content);
+        try {
+            if($id == null) {
+                $contents = Content::all();
+                if($contents->count() == 0) return $this->respondWithError('No content to delete', null);
+                foreach($contents as $content) {
+                    $content->delete();
+                }
+                return $this->respondWithSuccess('Successfully deleted all content', $contents);
+            }else{
+                $content = Content::find($id);
+                if(!$content) return $this->respondWithError('Content not found', null);
+                $content->delete();
+                return $this->respondWithSuccess('Successfully deleted content', $content);
+            }
+        } catch (\Throwable $th) {
+            return $this->respondWithError('Failed to delete content', $th->getMessage());
+        }
     }
 }

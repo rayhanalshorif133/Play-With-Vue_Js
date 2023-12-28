@@ -1,6 +1,10 @@
 <template>
     <div class="flex w-full">
-        <InsertSection :isInsert="{isInsert}"/>
+        <div class="mx-auto justify-center text-center w-4/12 flex flex-col">
+            <InsertSection v-bind:isInsert="{isInsert}"/>
+            <DeleteSection/>
+            {{ isInsert }} - {{ timer }}
+        </div>
         <div
             class="mx-auto justify-center text-center w-4/12 flex flex-col space-y-4 mt-2 mb-10"
         >
@@ -53,18 +57,22 @@
 </template>
 <script>
 import InsertSection from "./InsertSection.vue";
+import DeleteSection from "./DeleteSection.vue";
 import { ref } from "vue";
 import axios from "axios";
 const items = ref([]);
+var isInsert = ref(false);
+var timer = ref(2000);
+
 export default {
 
     components: {
         "InsertSection": InsertSection,
+        "DeleteSection": DeleteSection,
     },
 
     setup() {
         const count = ref(0);
-        const isInsert = ref(false);
 
         return {
             left_message: "Content's info and modified",
@@ -72,10 +80,12 @@ export default {
             count: count,
             items: items,
             isInsert: isInsert,
+            timer: timer,
         };
     },
     data() {
         this.fetch();
+        isInsert = false;
     },
     methods: {
         fetch: function () {
@@ -84,26 +94,22 @@ export default {
             });
         },
         deleteItem: function (id) {
+            this.isInsert = true;
             axios.delete("/api/content/" + id);
             items.value = items.value.filter((item) => item.id !== id);
-        },
-        submitForm: function () {
-            axios
-                .post("/api/content", {
-                    chapter: this.chapter,
-                    title: this.title,
-                    page: this.page,
-                })
-                .then((response) => {
-                    this.chapter = "";
-                    this.title = "";
-                    this.page = "";
-                    this.fetch();
-                    Toastr.fire({
-                        icon: "success",
-                        title: "Content added successfully",
-                    });
-                });
+
+            for (var i = 0; i < 2000; i++) {
+                setTimeout(function () {
+                    timer.value = timer.value - 1;
+                }, 1000);
+            }
+
+            setTimeout(() => {
+                this.isInsert = false;
+            }, 2000);
+            setTimeout(() => {
+                timer.value = 2000;
+            }, 3000);
         },
     },
 };

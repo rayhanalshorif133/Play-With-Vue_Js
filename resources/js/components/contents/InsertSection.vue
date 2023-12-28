@@ -1,7 +1,10 @@
 <template>
-    <div class="mx-auto justify-center text-center w-4/12 mt-2 mb-10">
+    <div class="mx-auto justify-center text-center w-full mt-2">
         <h1 class="text-center mt-10 text-2xl font-bold underline space-x-8">
-            <span>{{ left_message }} {{ isInsert_get }}</span>
+            <span
+                >{{ left_message }} <br />
+                {{ isInsert.isInsert }}</span
+            >
         </h1>
         <div class="border border-green-600 mt-2">
             <h2
@@ -59,34 +62,42 @@
 </template>
 
 <script>
-import { ref, mounted } from "vue";
+import { ref, toRefs } from "vue";
 import axios from "axios";
 export default {
-
     props: {
         isInsert: {
             type: Boolean,
         },
     },
-    data() {
+    mounted() {
+        // console.log(this.isInsert);
+    },
+    data(props) {
         return {
             chapter: "1",
             title: "something",
             page: "1",
+            isInsert: props.isInsert,
         };
     },
     setup(props) {
+        const { isInsert } = toRefs(props);
+        isInsert.value = true;
+
         return {
             left_message: "Content's info and modified",
-            isInsert_get: props.isInsert.isInsert,
+            isInsert,
         };
     },
     methods: {
         logPropValue() {
-            // Accessing props value in a method
-            console.log("Prop Value:", isInsert_get);
+            const { isInsert } = toRefs(this.$props);
+            isInsert.value = true;
+            console.log(isInsert.value);
         },
         submitForm: function () {
+            this.logPropValue();
             axios
                 .post("/api/content", {
                     chapter: this.chapter,
@@ -102,6 +113,7 @@ export default {
                         title: "Content added successfully",
                     });
                     this.logPropValue();
+                    location.reload();
                 });
         },
     },

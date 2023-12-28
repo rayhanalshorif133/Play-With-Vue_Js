@@ -26,7 +26,7 @@ Route::prefix('content')->name('content.')->group(function () {
     Route::post('/', [ContentController::class, 'store'])->name('store');
     Route::get('/{id}', [ContentController::class, 'show'])->name('show');
     Route::put('/{id}', [ContentController::class, 'update'])->name('update');
-    Route::delete('/{id}', [ContentController::class, 'destroy'])->name('destroy');
+    Route::delete('/{id?}', [ContentController::class, 'destroy'])->name('destroy');
 });
 
 
