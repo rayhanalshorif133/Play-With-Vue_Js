@@ -10,8 +10,8 @@
       <section class="mt-6 flex space-x-10 justify-center">
         <p class="text-xl font-semibold text-stone-800" v-for="(item,index) in days" :key="index">{{item}}</p>
       </section>
-      <section class="mt-6 flex flex-wrap space-x-10 justify-center">
-        <p class="text-xl font-semibold text-stone-800" v-for="(item,index) in 30" :key="index">{{item}}</p>
+      <section class="mt-6 flex flex-wrap space-x-[4rem] justify-center">
+        <p class="text-xl font-semibold text-stone-800" v-for="(item,index) in 10" :key="index">{{item}}</p>
       </section>
     </div>
   </div>
