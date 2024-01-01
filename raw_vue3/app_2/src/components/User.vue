@@ -16,6 +16,7 @@ export default {
     };
   },
   methods: {
+    // https://datatables.net/blog/2022-06-22-vue
     fetchUser() {
       fetch("https://dummyjson.com/users")
         .then((res) => res.json())
