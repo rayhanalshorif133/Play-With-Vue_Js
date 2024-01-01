@@ -15,7 +15,7 @@
       </h4>
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         <span v-for="(item,index) in months" :key="index" >
-          <CalendarItem v-bind:month={item} :year={year} />
+          <CalendarItem v-bind:month={item} v-bind:year={year} />
         </span>
       </div>
     </div>
@@ -38,8 +38,8 @@ export default {
     };
   },
   methods: {
-    handleYear() {
-      return this.year;
+    handleYear(e) {
+      this.year = e.target.value;
     },
   },
   computed: {

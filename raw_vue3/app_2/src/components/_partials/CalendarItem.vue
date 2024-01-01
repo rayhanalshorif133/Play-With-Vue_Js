@@ -48,9 +48,10 @@ export default {
       required: true,
     },
   },
+  emits: ['year'],
   mounted() {
     this.totalDays();
-    console.log(this.year);
+    console.log(this.SET_GAP());
   },
   data() {
     return {
@@ -68,7 +69,6 @@ export default {
       return days;
     },
     totalDays() {
-      console.log(this.month.item, this.year.year);
       this.total_days = this.getDaysInMonth(this.month.item, this.year.year);
       return this.total_days;
     },

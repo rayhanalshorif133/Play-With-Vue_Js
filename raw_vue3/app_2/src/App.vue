@@ -3,7 +3,8 @@
     
       <!-- <OldLearn /> -->
       <!-- <UserList /> -->
-      <Calendar />
+      <!-- <Calendar /> -->
+      <PropsDrillingPractice />
   </div>
 </template>
 
@@ -12,10 +13,11 @@ import Header from "./components/Header.vue";
 import OldLearn from "./components/OldLearn.vue";
 import UserList from "./components/UserList.vue";
 import Calendar from "./components/Calendar.vue";
+import PropsDrillingPractice from "./components/PropsDrillingPractice.vue";
 export default {
 
   components: {
-    Header,OldLearn,UserList,Calendar
+    Header,OldLearn,UserList,Calendar,PropsDrillingPractice
   },
   
 
