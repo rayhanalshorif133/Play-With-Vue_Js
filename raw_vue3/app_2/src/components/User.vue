@@ -6,10 +6,12 @@ export default {
     Header,
     Button,
   },
+  
   data() {
     return {
       users: [],
-      selectedUsers: [],
+      selectedUsers: [],  
+      handleSearch: "",
       isCheckedAll: false /* I want to use this variable to check if all the checkboxes are checked */,
     };
   },
@@ -103,6 +105,14 @@ export default {
         }
       });
     },
+    handleSearchItem(e){
+      const searchValue = e.target.value.toLowerCase();
+      this.handleSearch = searchValue;
+      this.users = this.users.filter((user) => {
+        return user.firstName.toLowerCase().includes(searchValue) || user.lastName.toLowerCase().includes(searchValue) || user.email.toLowerCase().includes(searchValue)
+      })
+      this.handleSearch == "" && this.fetchUser();
+    }
   },
   mounted() {
     this.fetchUser();
@@ -116,7 +126,13 @@ export default {
     <Header title="User" />
     <div class="w-fit mx-auto justify-center">
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <div class="absolute top-0 right-0 px-6 py-4">
+        <div class="absolute top-0 right-0 px-6 py-4 flex space-x-3">
+          <input
+            type="text"
+            class="px-4 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+            placeholder="Search..."
+            v-on:keyup="handleSearchItem"
+          />
           <Button
             icon="fa-solid fa-trash mx-2"
             bgColor="bg-red-600"
