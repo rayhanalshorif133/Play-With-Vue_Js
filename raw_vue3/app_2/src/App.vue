@@ -3,8 +3,8 @@
     
       <!-- <OldLearn /> -->
       <!-- <UserList /> -->
-      <!-- <Calendar /> -->
-      <PropsDrillingPractice />
+      <Calendar />
+      <!-- <PropsDrillingPractice /> -->
   </div>
 </template>
 

@@ -15,7 +15,7 @@
       </h4>
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         <span v-for="(item,index) in months" :key="index" >
-          <CalendarItem v-bind:month={item} v-bind:year={year} />
+          <CalendarItem :month="item" :year="year" />
         </span>
       </div>
     </div>
@@ -33,8 +33,9 @@ export default {
   },
   data() {
     return {
-      months : ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
-      year: "2025",
+      // months : ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+      months : ["Jan"],
+      year: "2024",
     };
   },
   methods: {
