@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import App1 from "./_props_drilling/App1.vue";
-import ChildComponent from './ChildComponent.vue';
+import App1 from "../_props_drilling/App1.vue";
+import ChildComponent from './ChildComponent.vue'
 export default {
   components: {
     App1,ChildComponent

@@ -24,8 +24,8 @@
 
 <script>
 
-import Header from "./Header.vue";
-import CalendarItem from "./_partials/CalendarItem.vue";
+import Header from "../Header.vue";
+import CalendarItem from "../_partials/CalendarItem.vue";
 export default {
   components: {
     Header,
