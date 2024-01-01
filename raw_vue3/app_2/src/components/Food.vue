@@ -1,28 +1,30 @@
 <template>
-  <div>
+  <div class="bg-[#F3F4F6] min-h-screen">
     <Header title="Food" />
-    <h1 class="text-2xl font-bold mx-auto justify-center text-center mt-6">
-      List of Food
-    </h1>
-    <div class="mx-auto justify-center flex">
-      <table class="border border-gray-400 mt-6">
-        <thead class="border border-gray-400">
-          <tr class="border border-gray-400">
-            <th class="border border-gray-400 px-5">Food Name</th>
-            <th class="border border-gray-400 px-5">Food Description</th>
-            <th class="border border-gray-400 px-5">Is Favorite</th>
-            <th class="border border-gray-400 px-5">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <food-item
-            v-for="item in foodItems"
-            :key="item"
-            :food-details="item"
-            @toggle-favorite="receiveEmit"
-          />
-        </tbody>
-      </table>
+    <div class="px-5 py-5 bg-white shadow-xl w-fit rounded-lg mt-6 mx-auto justify-center">
+      <h1 class="text-2xl font-bold mx-auto justify-center text-center">
+        List of Food
+      </h1>
+      <div class="mx-auto justify-center flex">
+        <table class="border border-gray-400 mt-6">
+          <thead class="border border-gray-400">
+            <tr class="border border-gray-400">
+              <th class="border border-gray-400 px-5">Food Name</th>
+              <th class="border border-gray-400 px-5">Food Description</th>
+              <th class="border border-gray-400 px-5">Is Favorite</th>
+              <th class="border border-gray-400 px-5">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <food-item
+              v-for="item in foodItems"
+              :key="item"
+              :food-details="item"
+              @toggle-favorite="receiveEmit"
+            />
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -62,6 +64,12 @@ export default {
           desc: "Rice is white",
           isFavorite: false,
         },
+        {
+          id: 5,
+          name: "Bread",
+          desc: "Bread is brown",
+          isFavorite: true,
+        },
       ],
     };
   },
@@ -70,7 +78,7 @@ export default {
       this.$emit("toggle-Favorite");
     },
     receiveEmit(foodItem) {
-      const {id} = foodItem;
+      const { id } = foodItem;
       var findFood = this.foodItems.find((item) => item.id === id);
       findFood.isFavorite = !findFood.isFavorite;
     },
