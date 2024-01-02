@@ -1,16 +1,37 @@
 <script>
 import Header from "./Header.vue";
 import Button from "./common/Button.vue";
+import Select from "datatables.net-select";
+import { ref } from "vue";
+
+import DataTable from "datatables.net-vue3";
+import DataTablesCore from "datatables.net";
+import DataTablesLib from "datatables.net-dt";
+
+DataTable.use(DataTablesLib);
+
 export default {
   components: {
     Header,
     Button,
+    DataTable,
   },
-  
+
+  setup() {
+    const data = ref([
+      { column1: "Data 1", column2: "Data 2" },
+      { column1: "Data 3", column2: "Data 4" },
+    ]);
+    return {
+      data,
+    };
+  },
+
   data() {
     return {
       users: [],
-      selectedUsers: [],  
+      selectedUsers: [],
+      showoldUsers: false,
       handleSearch: "",
       isCheckedAll: false /* I want to use this variable to check if all the checkboxes are checked */,
     };
@@ -106,14 +127,18 @@ export default {
         }
       });
     },
-    handleSearchItem(e){
+    handleSearchItem(e) {
       const searchValue = e.target.value.toLowerCase();
       this.handleSearch = searchValue;
       this.users = this.users.filter((user) => {
-        return user.firstName.toLowerCase().includes(searchValue) || user.lastName.toLowerCase().includes(searchValue) || user.email.toLowerCase().includes(searchValue)
-      })
+        return (
+          user.firstName.toLowerCase().includes(searchValue) ||
+          user.lastName.toLowerCase().includes(searchValue) ||
+          user.email.toLowerCase().includes(searchValue)
+        );
+      });
       this.handleSearch == "" && this.fetchUser();
-    }
+    },
   },
   mounted() {
     this.fetchUser();
@@ -125,7 +150,15 @@ export default {
 <template>
   <div>
     <Header title="User" />
-    <div class="w-fit mx-auto justify-center">
+    <DataTable class="display">
+      <thead>
+        <tr>
+          <th>column1</th>
+          <th>column2</th>
+        </tr>
+      </thead>
+    </DataTable>
+    <div class="w-fit mx-auto justify-center" v-show="showoldUsers">
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div class="absolute top-0 right-0 px-6 py-4 flex space-x-3">
           <input
