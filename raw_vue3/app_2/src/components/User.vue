@@ -5,6 +5,7 @@ import { ref } from "vue";
 
 import DataTable from "datatables.net-vue3";
 import DataTablesCore from "datatables.net";
+import axios from "axios";
 
 DataTable.use(DataTablesCore);
 
@@ -16,10 +17,11 @@ export default {
   },
 
   setup() {
+
     const data = ref([
-      ['Mr_x', 10],
-      ['Mr_y', 20],
-      ['Mr_z', 30],
+      ["Mr_x", 10, 2],
+      ["Mr_y", 20, 3],
+      ["Mr_z", 30, 4],
     ]);
     return {
       data,
@@ -27,8 +29,10 @@ export default {
   },
 
   data() {
+    
     return {
       users: [],
+      products: [],
       selectedUsers: [],
       showoldUsers: false,
       handleSearch: "",
@@ -43,6 +47,15 @@ export default {
         .then((res) => {
           const { users } = res;
           this.users.push(...users);
+        });
+    },
+    fetchProduct() {
+      fetch("https://dummyjson.com/products")
+        .then((res) => res.json())
+        .then((res) => {
+          const { products } = res;
+          console.log(products);
+          this.products.push(...products);
         });
     },
     handleDeleteItem(id) {
@@ -141,6 +154,7 @@ export default {
   },
   mounted() {
     this.fetchUser();
+    this.fetchProduct();
     this.handleIsAllChecked();
   },
 };
@@ -149,14 +163,17 @@ export default {
 <template>
   <div>
     <Header title="User" />
-    <DataTable :data="data" class="display">
-      <thead>
-        <tr>
-          <th>column1</th>
-          <th>column2</th>
-        </tr>
-      </thead>
-    </DataTable>
+    <div class="mt-[3rem] mx-auto flex justify-center">
+      <DataTable :data="products" class="display">
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+          </tr>
+        </thead>
+      </DataTable>
+    </div>
 
     <div class="w-fit mx-auto justify-center" v-show="showoldUsers">
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -273,5 +290,5 @@ export default {
   </div>
 </template>
 <style>
-@import 'datatables.net-dt';
+@import "datatables.net-dt";
 </style>
