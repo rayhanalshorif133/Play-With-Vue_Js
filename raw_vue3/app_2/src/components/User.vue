@@ -1,14 +1,12 @@
 <script>
 import Header from "./Header.vue";
 import Button from "./common/Button.vue";
-import Select from "datatables.net-select";
 import { ref } from "vue";
 
 import DataTable from "datatables.net-vue3";
 import DataTablesCore from "datatables.net";
-import DataTablesLib from "datatables.net-dt";
 
-DataTable.use(DataTablesLib);
+DataTable.use(DataTablesCore);
 
 export default {
   components: {
@@ -19,8 +17,9 @@ export default {
 
   setup() {
     const data = ref([
-      { column1: "Data 1", column2: "Data 2" },
-      { column1: "Data 3", column2: "Data 4" },
+      ['Mr_x', 10],
+      ['Mr_y', 20],
+      ['Mr_z', 30],
     ]);
     return {
       data,
@@ -150,7 +149,7 @@ export default {
 <template>
   <div>
     <Header title="User" />
-    <DataTable class="display">
+    <DataTable :data="data" class="display">
       <thead>
         <tr>
           <th>column1</th>
@@ -158,6 +157,7 @@ export default {
         </tr>
       </thead>
     </DataTable>
+
     <div class="w-fit mx-auto justify-center" v-show="showoldUsers">
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div class="absolute top-0 right-0 px-6 py-4 flex space-x-3">
@@ -272,3 +272,6 @@ export default {
     </div>
   </div>
 </template>
+<style>
+@import 'datatables.net-dt';
+</style>
