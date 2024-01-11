@@ -54,8 +54,11 @@ export default {
         .then((res) => res.json())
         .then((res) => {
           const { products } = res;
-          console.log(products);
-          this.products.push(...products);
+          var data = [];
+          products.forEach(product => {
+            data.push([product.title, product.price, product.stock]);
+          });
+          this.products.push(...data);
         });
     },
     handleDeleteItem(id) {
